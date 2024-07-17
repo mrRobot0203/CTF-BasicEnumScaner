@@ -1,24 +1,24 @@
 #!/bin/bash
 
 function map(){
-	mkdir nmap 2> /dev/null
-	nmap -A -Pn -p- -vvv $1 > nmap/nmap.nmap 2>&1 &
-	nmappid=$!
+        mkdir nmap 2> /dev/null
+        nmap -A -Pn -p- -vvv $1 > nmap/nmap.nmap 2>&1 &
+        nmappid=$!
 
 }
 
 function gobu(){
-	mkdir gobuster 2> /dev/null
-	gobuster dir --url http://$1 -x php,html,txt,js -w=/usr/share/wordlists/SecLists/Discovery/Web-Content/raft-small-words.txt > gobuster/go.out 2>&1 &
-	gobusterpid=$!
-	gobuster dns -d $1 -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -i --wildcard > gobuster/godns.out 2>&1 &
-	gubustersubpid=$!
+        mkdir gobuster 2> /dev/null
+        gobuster dir --url http://$1 -x php,html,txt,js -w=/usr/share/wordlists/SecLists/Discovery/Web-Content/raft-small-words.txt > gobuster/go.out 2>&1 &
+        gobusterpid=$!
+        ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -u http://$1/ -H "Host:FUZZ.$1.htb"  2>&1 &
+        gubustersubpid=$!
 }
 
 function what(){
-	mkdir whatweb 2> /dev/null
-	whatweb -a=3 -v $1 > whatweb.txt 2>&1 &
-	whatwebpid=$!
+        mkdir whatweb 2> /dev/null
+        whatweb -a 4 -v $1 > whatweb.txt 2>&1 &
+        whatwebpid=$!
 }
 
 if [ $# -eq 0 ] 
