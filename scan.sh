@@ -17,7 +17,7 @@ function gobu(){
 
 function what(){
         mkdir whatweb 2> /dev/null
-        whatweb -a 4 -v $1 > whatweb.txt 2>&1 &
+        whatweb -a 4 -v $1 > whatweb/whatweb.txt 2>&1 &
         whatwebpid=$!
 }
 
