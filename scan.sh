@@ -11,7 +11,7 @@ function gobu(){
         mkdir gobuster 2> /dev/null
         gobuster dir --url http://$1 -x php,html,txt,js -w=/usr/share/wordlists/SecLists/Discovery/Web-Content/raft-small-words.txt > gobuster/go.out 2>&1 &
         gobusterpid=$!
-        ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -u http://$1/ -H "Host:FUZZ.$1.htb" > gobuster/gobns.out 2>&1 &
+        ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-110000.txt -u http://$1/ -H "Host:FUZZ.$1" > gobuster/gobns.out 2>&1 &
         gubustersubpid=$!
 }
 
